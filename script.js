@@ -24,9 +24,15 @@ function operate(a,b,operator) {
 
 }
 
-console.log(operate(100,5,'/'));
 
 
 const keys = document.querySelectorAll('td');
 
+keys.forEach((key) => {
+    key.addEventListener('click', () => {
+
+        console.log(key.textContent);
+    })
+
+})
 
