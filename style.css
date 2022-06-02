@@ -1,0 +1,16 @@
+body {
+    width: 100%;
+}
+
+.calculator {
+    width: 20%;
+    border: 2px black solid;
+    padding: 20px;
+}
+
+.display {
+    /* width: 80%; */
+    height: 50px;
+    border: 1px black solid;
+}
+
