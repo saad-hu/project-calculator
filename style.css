@@ -17,13 +17,14 @@ body {
     width: 300px;
     border: 8px rgb(151, 151, 151) solid;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .display {
     background-color: grey;
-    height: 50px;
+    height: 80px;
     border: 2px silver solid;
+    padding: 10px 10px;
 }
 
 .clear-section {
@@ -67,7 +68,15 @@ td:hover {
     background-color: rgb(66, 66, 66);
 }
 
+.digits-section {
+    font-size: 35px;
+}
 
+.result-section {
+    font-size: 35px;
+    display: flex;
+    justify-content: flex-end;
+}
 
 
 
