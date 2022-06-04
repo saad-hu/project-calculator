@@ -1,8 +1,6 @@
 body {
-    width: 100%;
     background-color: seashell;
     margin: 0px;
-    /* color: white; */
 }
 
 #calculator-container {
@@ -22,51 +20,80 @@ body {
 
 .display {
     background-color: grey;
-    height: 80px;
+    height: 70px;
     border: 2px silver solid;
+    border-radius: 5px;
     padding: 10px 10px;
 }
 
-.clear-section {
+.clear-divide-section {
     display: flex;
+    align-items: center;
     justify-content: space-around;
-    gap: 20px;
-    margin: 10px 0px 5px 0px;
+    gap: 15px;
+    margin: 10px 0px 0px 0px;
 }
 
 .clear, .delete {
     text-align: center;
-    font-size: 25px;
+    font-size: 24px;
     border: 1px silver solid;
-    background-color: rgb(129, 129, 129);
-    padding: 10px 20px;
+    border-radius: 5px;
+    padding: 10px 15px;
 }
 
-tr {
-    display: flex;  /*this was done because we are not able to give table's cells (<td>) a margin. After making the rows flex, I was able to do so.*/
+.clear {
+    background-color: palevioletred;
 }
 
-td {
-    width: 50px;
+.delete {
+    background-color: lightblue;
+}
+
+.row {
+    display: flex;
+}
+
+button.key {
+    /* width: 50px;
     height: 40px;
     font-size: 30px;
     border: 2px silver solid;
     margin: 5px;
     text-align: center;
     padding: 5px;
-    background-color: rgb(129, 129, 129);
+    background-color: rgb(129, 129, 129); */
+
+    font-size: 30px;
+    margin: 5px;
+    flex: 1 0 0; /*flex-grow: 1, and the flex basis is zero, which means that all the keys will have the same width in the end */
+    padding: 10px 2px;
+    background-color: white;
+    color: black;
+    border: 2px rgb(139, 139, 139) solid;
+    border-radius: 5px;
 }
 
-td:hover {
-    width: 50px;
+button.key:hover {
+    /* width: 50px;
     height: 40px;
     font-size: 30px;
     border: 2px silver solid;
     margin: 5px;
     text-align: center;
     padding: 5px;
-    background-color: rgb(66, 66, 66);
+    background-color: rgb(66, 66, 66); */
+
+    font-size: 30px;
+    margin: 5px;
+    flex: 1 0 0; /*flex-grow: 1, and the flex basis is zero, which means that all the keys will have the same width in the end */
+    padding: 10px 2px;
+    background-color: rgb(216, 216, 216);
+    color: black;
+    border: 2px rgb(139, 139, 139) solid;
+    border-radius: 5px;
 }
+
 
 .digits-section {
     font-size: 35px;
