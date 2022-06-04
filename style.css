@@ -54,7 +54,7 @@ body {
     display: flex;
 }
 
-button.key {
+button.key, .equalSign {
     /* width: 50px;
     height: 40px;
     font-size: 30px;
@@ -74,7 +74,7 @@ button.key {
     border-radius: 5px;
 }
 
-button.key:hover {
+button.key:hover, .equalSign:hover {
     /* width: 50px;
     height: 40px;
     font-size: 30px;
@@ -88,7 +88,7 @@ button.key:hover {
     margin: 5px;
     flex: 1 0 0; /*flex-grow: 1, and the flex basis is zero, which means that all the keys will have the same width in the end */
     padding: 10px 2px;
-    background-color: rgb(216, 216, 216);
+    background-color: rgb(211, 211, 211);
     color: black;
     border: 2px rgb(139, 139, 139) solid;
     border-radius: 5px;

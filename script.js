@@ -56,13 +56,12 @@ function calculate() {
             if(operators[i] == value) {
                 operator = value;
                 return true;
-            }
-            
+            } 
         }
     });
 
-    let operand1 = valuesArray.slice(0,operatorIndex).join("");
-    let operand2 = valuesArray.slice(operatorIndex+1, valuesArray.length - 1).join("");
+    let operand1 = +valuesArray.slice(0,operatorIndex).join("");
+    let operand2 = +valuesArray.slice(operatorIndex+1, valuesArray.length).join("");
 
     let result = operate(operand1, operand2, operator);
     console.log(result);
