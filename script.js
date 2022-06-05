@@ -48,9 +48,7 @@ keys.forEach((key) => {
 let equalSign = document.querySelector('.equalSign');
 
 //when user clicks equalSign, calculate function is triggered
-equalSign.addEventListener('click', () => {
-    calculate();
-})
+equalSign.addEventListener('click', calculate)
 
  //an array of all the operators my calcultor features. If new operations are introduced in the calculator, add it's sign to this array
 let operators = ['+', '-', 'x', '÷'];
@@ -82,22 +80,25 @@ function calculate() {
     displayResult(result);
     valuesArray = []; //deletes all the elements from the array. could have used also: valuesArray.splice(0, valuesArray.length);
     valuesArray.push(result); //adding the result in the array for further calculation(if the user decides)
-    
+
     console.log(valuesArray);
     console.log(result);    
 }
 
 
+const digitSection = document.querySelector('.digits-section');
+
 function displayDigit(digit) {
-    const digitSection = document.querySelector('.digits-section');
+    
     const singleDigit = document.createElement('span');
     singleDigit.textContent = digit;
     digitSection.appendChild(singleDigit);
 
 }
 
+const resultSection = document.querySelector('.result-section');
+
 function displayResult(result) {
-    const resultSection = document.querySelector('.result-section');
     resultSection.textContent = result;
 }
 
@@ -105,8 +106,18 @@ function nextCalculation() {
     
 }
 
+
+const clear = document.querySelector('.clear');
+
+clear.addEventListener('click', clearAll)
+
 function clearAll() {
-    //
+    valuesArray = []; //deletes all elements from valuesArray
+    resultSection.textContent = ""; //clears result section
+
+    //clears digitSection
+    while(digitSection.lastChild) digitSection.removeChild(digitSection.lastChild); 
+
 }
 
 function del() {
