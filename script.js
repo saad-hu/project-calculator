@@ -152,14 +152,17 @@ function clearAll() {
 //todo: for delete function, make a variable to store the last digit entered. check if it is a number or sign and do the calculations accordingly. if none, do not do anything
 const dlete = document.querySelector('.delete')
 
-dlete.addEventListener('click', () => {
-    del(userClick);
-});
+dlete.addEventListener('click', del);
 
-function del(lastDigitEntered) {
+function del() {
     
+    //if the last thing done was a calculation, that is in the valuesArray there is only result, do nothing.
+    if(resultActive) return;
+
+    let indexOfLastDigit = valuesArray.length - 1;
+
     for(let oper of operators) {
-        if(oper == lastDigitEntered) {
+        if(oper == valuesArray[indexOfLastDigit]) {
             operatorCount--;
             valuesArray.pop()
             digitSection.removeChild(digitSection.lastChild);
@@ -167,20 +170,12 @@ function del(lastDigitEntered) {
         }
     }
 
-    //if the last thing done was a calculation, that is in the valuesArray there is only result, do nothing.
-    if(resultActive) return;
-
-
     //nowonwards, code executes when a number was the ast digit entered
-    //removes display of the last digit entered
-    digitSection.removeChild(digitSection.lastChild);
-
-     //removes the last element from the array
-    valuesArray.pop()
+    digitSection.removeChild(digitSection.lastChild); //removes display of the last digit entered
+    valuesArray.pop(); //removes the last element from the array
 }
 
 
 function clearDigitSection() {
     while(digitSection.lastChild) digitSection.removeChild(digitSection.lastChild); 
 }
-
