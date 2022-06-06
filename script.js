@@ -34,46 +34,41 @@ function operate(a,b,operator) {
 //this array will store all the inputs including numbers and signs (operands and operators) in the same order the user clicks
 let valuesArray = [];
 
-//refernce to all the keys in the calculator, except equalSign, clear and delete key
+//refernce to all the keys in the calculator, EXCEPT equalSign, clear and delete key
 const keys = document.querySelectorAll('button.key');
 
-let operatorCount = 0;
-let resultActive = false;
+let operatorCount = 0; //keeps track of how many times operators have been pressed in one calculation. Since operations are done in pairs, upon second press of an operator, calculate function will be called
+let resultActive = false; 
+let userClick;
 
 keys.forEach((key) => {
     key.addEventListener('click', () => {
-        let userClick = key.textContent; //userClick stores the operators and operands as string the user clicks
+        userClick = key.textContent; //userClick stores the operators and operands as string the user clicks
 
 
-
-        for(let i = 0; i < operators.length; i++) {
-            if(operators[i] == userClick) {
+        //this counts the number of times operator has been pressed and saves it in variable operatorCount
+        for(let oper of operators) {
+            if(oper == userClick) {
                 operatorCount++;
                 break;
             }
         }
 
-        let resultCopy;
+        //since we have to perform calculations in pairs, if the user presses an operator for the second time, calculate function is called
         if(operatorCount > 1) {
             let result = calculate();
-            resultCopy = result;
-            clearDigitSection();
+            clearDigitSection();  //clearing digit section and displaying result in it so that the result can be used for further calculations
             displayDigit(result);
             operatorCount = 1;
         }
 
+
+        //this code was added after result has been calculated using equals sign. calculate funtion makes resultActive = true
         if(resultActive == true) {
             clearDigitSection();
             displayDigit(resultSection.textContent);
             resultActive = false;
         }
-
-
-
-        // if(resultSection.textContent != "") {
-        //     // clearDigitSection();
-        //     displayDigit(resultCopy);
-        // }
 
         displayDigit(userClick);    //this displays user selection in the top of the screen
         valuesArray.push(userClick); //adding userClick to the end of the array
@@ -87,7 +82,7 @@ let equalSign = document.querySelector('.equalSign');
 equalSign.addEventListener('click', calculate)
 
 
-//this function calculates using th valuesArray
+//this function calculates using the valuesArray. It prints the result in the resultSection and returns it aswell.
 function calculate() {
     let operator;
 
@@ -115,9 +110,8 @@ function calculate() {
     valuesArray = []; //deletes all the elements from the array. could have used also: valuesArray.splice(0, valuesArray.length);
     valuesArray.push(result); //adding the result in the array for further calculation(if the user decides)
 
-    console.log(valuesArray);  
-    operatorCount = 0;
-    resultActive = true;
+    operatorCount = 0; //useful when equals sign is pressed to calculate
+    resultActive = true;    //useful when equals sign is pressed to calculate
     return result;
 }
 
@@ -151,18 +145,38 @@ function clearAll() {
     clearDigitSection(); 
 
     operatorCount = 0;
+    resultActive = false;
 }
 
 
+//todo: for delete function, make a variable to store the last digit entered. check if it is a number or sign and do the calculations accordingly. if none, do not do anything
 const dlete = document.querySelector('.delete')
 
-dlete.addEventListener('click', del);
+dlete.addEventListener('click', () => {
+    del(userClick);
+});
 
-function del() {
+function del(lastDigitEntered) {
+    
+    for(let oper of operators) {
+        if(oper == lastDigitEntered) {
+            operatorCount--;
+            valuesArray.pop()
+            digitSection.removeChild(digitSection.lastChild);
+            return;
+        }
+    }
+
+    //if the last thing done was a calculation, that is in the valuesArray there is only result, do nothing.
+    if(resultActive) return;
+
+
+    //nowonwards, code executes when a number was the ast digit entered
     //removes display of the last digit entered
     digitSection.removeChild(digitSection.lastChild);
 
-    valuesArray.pop() //removes the last element from the array
+     //removes the last element from the array
+    valuesArray.pop()
 }
 
 
