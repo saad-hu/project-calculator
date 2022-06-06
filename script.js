@@ -28,19 +28,55 @@ function operate(a,b,operator) {
 
 }
 
+ //an array of all the operators the calcultor features. If new operations are introduced in the calculator, add it's sign to this array
+ let operators = ['+', '-', 'x', '÷'];
+
 //this array will store all the inputs including numbers and signs (operands and operators) in the same order the user clicks
 let valuesArray = [];
 
 //refernce to all the keys in the calculator, except equalSign, clear and delete key
 const keys = document.querySelectorAll('button.key');
 
+let operatorCount = 0;
+let resultActive = false;
 
 keys.forEach((key) => {
     key.addEventListener('click', () => {
-        let userClick = key.textContent; //userClick stores the operators and operands as string the user clicks 
+        let userClick = key.textContent; //userClick stores the operators and operands as string the user clicks
+
+
+
+        for(let i = 0; i < operators.length; i++) {
+            if(operators[i] == userClick) {
+                operatorCount++;
+                break;
+            }
+        }
+
+        let resultCopy;
+        if(operatorCount > 1) {
+            let result = calculate();
+            resultCopy = result;
+            clearDigitSection();
+            displayDigit(result);
+            operatorCount = 1;
+        }
+
+        if(resultActive == true) {
+            clearDigitSection();
+            displayDigit(resultSection.textContent);
+            resultActive = false;
+        }
+
+
+
+        // if(resultSection.textContent != "") {
+        //     // clearDigitSection();
+        //     displayDigit(resultCopy);
+        // }
+
         displayDigit(userClick);    //this displays user selection in the top of the screen
         valuesArray.push(userClick); //adding userClick to the end of the array
-        console.log(userClick);
     })
 })
 
@@ -50,8 +86,6 @@ let equalSign = document.querySelector('.equalSign');
 //when user clicks equalSign, calculate function is triggered
 equalSign.addEventListener('click', calculate)
 
- //an array of all the operators my calcultor features. If new operations are introduced in the calculator, add it's sign to this array
-let operators = ['+', '-', 'x', '÷'];
 
 //this function calculates using th valuesArray
 function calculate() {
@@ -81,8 +115,10 @@ function calculate() {
     valuesArray = []; //deletes all the elements from the array. could have used also: valuesArray.splice(0, valuesArray.length);
     valuesArray.push(result); //adding the result in the array for further calculation(if the user decides)
 
-    console.log(valuesArray);
-    console.log(result);    
+    console.log(valuesArray);  
+    operatorCount = 0;
+    resultActive = true;
+    return result;
 }
 
 
@@ -102,10 +138,6 @@ function displayResult(result) {
     resultSection.textContent = result;
 }
 
-function nextCalculation() {
-    
-}
-
 
 const clear = document.querySelector('.clear');
 
@@ -116,11 +148,25 @@ function clearAll() {
     resultSection.textContent = ""; //clears result section
 
     //clears digitSection
-    while(digitSection.lastChild) digitSection.removeChild(digitSection.lastChild); 
+    clearDigitSection(); 
 
+    operatorCount = 0;
 }
 
-function del() {
 
+const dlete = document.querySelector('.delete')
+
+dlete.addEventListener('click', del);
+
+function del() {
+    //removes display of the last digit entered
+    digitSection.removeChild(digitSection.lastChild);
+
+    valuesArray.pop() //removes the last element from the array
+}
+
+
+function clearDigitSection() {
+    while(digitSection.lastChild) digitSection.removeChild(digitSection.lastChild); 
 }
 
