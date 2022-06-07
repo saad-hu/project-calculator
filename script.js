@@ -1,4 +1,4 @@
-//todo: add security
+
 
 //seperate functions for each operation is created below. 
 function add(a,b) {
@@ -51,6 +51,7 @@ keys.forEach((key) => {
         if(syntaxError) {
             clearDigitSection();
             syntaxError = false;
+            return;
         }
 
         userClick = key.textContent; //userClick stores the operators and operands as string the user clicks
@@ -67,6 +68,7 @@ keys.forEach((key) => {
         //since we have to perform calculations in pairs, if the user presses an operator for the second time, calculate function is called
         if(operatorCount > 1) {
             let result = calculate();
+            if(syntaxError == true) return;
             clearDigitSection();  //clearing digit section and displaying result in it so that the result can be used for further calculations
             displayDigit(result);
             operatorCount = 1;
@@ -86,6 +88,8 @@ keys.forEach((key) => {
         valuesArray.push(userClick); //adding userClick to the end of the array
     })
 })
+
+
 
 //reference to equalSign
 let equalSign = document.querySelector('.equalSign');
@@ -119,6 +123,12 @@ function calculate() {
     console.log(operator);
     let operand2 = +valuesArray.slice(operatorIndex+1, valuesArray.length).join("");
     console.log(operand2);
+
+    if(operand1 == NaN || operand2 == NaN) {
+        displayError();
+        return;
+    }
+
 
     let result = operate(operand1, operand2, operator);
 
@@ -213,6 +223,14 @@ function displayError() {
     displayDigit("Syntax Error");
     syntaxError = true;
 }
+
+
+
+
+
+
+
+
 
 
 
