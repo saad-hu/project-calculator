@@ -94,7 +94,8 @@ function calculate() {
         return;
     }
 
-    let result = operate(operand1, operand2, operator);
+    let notRoundedResult = operate(operand1, operand2, operator);
+    let result = Math.round(notRoundedResult*100)/100;
     if(result === null || result == NaN) {
         displayError();
         return;
