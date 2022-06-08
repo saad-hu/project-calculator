@@ -113,5 +113,7 @@ button.key:hover, .equalSign:hover {
     font-size: 20px;
 }
 
-
+.note {
+    padding-left: 20px;
+}
 
